@@ -1,0 +1,312 @@
+
+------------------------------
+섹션 1: Getting Started with the Course
+------------------------------
+1. Course Introduction
+------------------------------
+2. Prerequisites
+------------------------------
+섹션 2: Source Code and Course Slides for this Course
+------------------------------
+3. Source Code
+------------------------------
+4. Course Slides
+------------------------------
+섹션 3: Why Reactive Programming ?
+------------------------------
+5. Why Reactive Programming - Part 1?
+------------------------------
+6. Why Reactive Programming - Part 2?
+------------------------------
+섹션 4: Introduction to Reactive Programming
+------------------------------
+7. What is Reactive Programming ?
+------------------------------
+8. Introduction to Reactive Streams
+------------------------------
+섹션 5: Introduction to Spring WebFlux
+------------------------------
+9. Non-Blocking(Reactive) RestFul API using Spring WebFlux
+------------------------------
+섹션 6: Getting Started with Project Reactor
+------------------------------
+10. Introduction to Project Reactor
+------------------------------
+11. Reactor Reactive Types - Flux and Mono
+------------------------------
+섹션 7: Setting up the base project for this course
+------------------------------
+12. Project SetUp
+------------------------------
+섹션 8: Lets Explore Flux and Mono - Hands On
+------------------------------
+13. Let's write our very first Flux
+------------------------------
+14. Let's write our very first Mono
+------------------------------
+15. Reactive Stream Events
+------------------------------
+16. Testing Flux using JUnit5
+------------------------------
+17. Transforming Data Using Operators in Project Reactor
+------------------------------
+18. Transform using map() Operator
+------------------------------
+19. Reactive Streams are Immutable
+------------------------------
+20. Filter using filter() Operator
+------------------------------
+21. Advanced transform using the flatMap() Operator
+------------------------------
+22. Asynchronous Operations using flatMap() Operator
+------------------------------
+23. Advanced transform using the concatMap() Operator
+------------------------------
+24. flatMap( ) operator in Mono
+------------------------------
+25. flatMapMany( ) operator in Mono
+------------------------------
+26. Transform using the transform() Operator
+------------------------------
+27. Handling empty data using defaultIfEmpty and switchIfEmpty() Operators
+------------------------------
+28. Introduction to Combining Reactive Streams
+------------------------------
+29. Combining Reactive Streams using concat and concatWith Operator
+------------------------------
+30. Combining Reactive Streams using merge() and mergeWith() Operators
+------------------------------
+31. Combining Reactive Streams using mergeSequential() operator
+------------------------------
+32. Combining Reactive Streams using zip and zipWith() Operator
+------------------------------
+섹션 9: Introduction to Spring WebFlux
+------------------------------
+33. Introduction to Spring WebFlux
+------------------------------
+34. What are we going to build in this Course ?
+------------------------------
+섹션 10: Set up the MoviesInfoService Service
+------------------------------
+35. Project SetUp
+------------------------------
+섹션 11: Simple Non Blocking RESTFUL API using Annotated Controller Approach
+------------------------------
+36. Build a Simple Non Blocking API - Flux
+------------------------------
+37. Build a simple Non Blocking API - Mono
+------------------------------
+38. Build Infinite Streams API (SSE)
+------------------------------
+섹션 12: Automated Tests using JUnit5 and @WebFluxTest
+------------------------------
+39. Introduction to Automated Tests
+------------------------------
+40. Testing Spring Webflux Endpoint using@WebFlux Test Annotation
+------------------------------
+41. Different Approaches of Testing an Endpoint
+------------------------------
+42. JUnit Test for the Mono Endpoint
+------------------------------
+43. JUnit Test Streaming Endpoint - SSE
+------------------------------
+섹션 13: Reactive Programming in Mongo DB for the MovieInfo Service
+------------------------------
+44. Set up the MovieInfo Document
+------------------------------
+45. Configure the ReactiveMongoDB Repository for MovieInfo Document
+------------------------------
+46. Configure the Mongo DB server details in the application.yml file
+------------------------------
+47. Setup the Integration Test using @DataMongoTest
+------------------------------
+48. Write Integration Test for findAll() MovieInfo Document
+------------------------------
+49. Write Integration Test for findById()  MovieInfo Document
+------------------------------
+50. Write Integration Test for saving the MovieInfo Document
+------------------------------
+51. Write Integration Test for updating the MovieInfo Document
+------------------------------
+52. Write Integration Test for deleting the MovieInfo Document
+------------------------------
+섹션 14: Build MovieInfo Service using Rest Controller Approach
+------------------------------
+53. Build a POST endpoint to create a new MovieInfo
+------------------------------
+54. Integration Test for the POST end point using JUnit5
+------------------------------
+55. Build a GET Endpoint to get all the MoviesInfo
+------------------------------
+56. Build a GET Endpoint to retrieve a MovieInfo by ID
+------------------------------
+57. Build a PUT Endpoint to update a MovieInfo by ID
+------------------------------
+58. Build the DELETE endpoint to delete a MovieInfo by ID
+------------------------------
+과제 1: Write an Integration Test for Delete Endpoint
+------------------------------
+섹션 15: Unit Testing in Spring WebFlux
+------------------------------
+59. Setting up the UnitTest in WebFlux
+------------------------------
+60. Unit Test for GetAllMovieInfos endpoint - GET
+------------------------------
+과제 2: Unit Test for getMovieInfoById
+------------------------------
+61. Unit Test for the create MovieInfo Endpoint - POST
+------------------------------
+62. Unit Test for the update MovieInfo Endpoint - PUT
+------------------------------
+과제 3: Assignment : Unit Test for Delete Movie Info
+------------------------------
+섹션 16: Bean Validation using Validators and ControllerAdvice
+------------------------------
+63. Bean Validation for Name,Year with @NotBlank and @Positive Annotation Validators
+------------------------------
+64. Customize the Default Error handling using ControllerAdvice
+------------------------------
+65. Bean Validation for List Field using @NotBlank Annotation
+------------------------------
+섹션 17: Using ResponseEntity with Reactive Types
+------------------------------
+66. Need for ResponseEntity in Spring WebFlux
+------------------------------
+67. Using ResponseEntity to dynamically change the Response Status
+------------------------------
+과제 4: Implement 404 Response for the getMovieInfoById Endpoint
+------------------------------
+섹션 18: Writing Custom Queries using ReactiveMongoRepository
+------------------------------
+68. Implement a Custom Query to retrieve MovieInfo by Year
+------------------------------
+69. GET Endpoint to retrieve a MovieInfo by Year - Using @RequestParam
+------------------------------
+과제 5: Build a Custom Repository function to retrieve MovieInfo by name
+------------------------------
+섹션 19: Spring WebFlux Under the Hood - Netty and Threading Model
+------------------------------
+70. How Netty works with Spring Webflux ?
+------------------------------
+71. How does Netty handle the Request ?
+------------------------------
+섹션 20: Introduction to Functional Web Module in Spring WebFlux
+------------------------------
+72. Introduction to Functional Web
+------------------------------
+73. Build a simple RestFul API using Functional Web
+------------------------------
+섹션 21: Build MoviesReview Service using  Functional Web
+------------------------------
+74. Set up the Repository Class for the Review Document
+------------------------------
+75. Build the POST endpoint for creating a new Review
+------------------------------
+76. Write Integration test for creating a new Review
+------------------------------
+77. Build the GET endpoint for retrieving all the Reviews
+------------------------------
+78. Nesting Endpoints using nest() Function
+------------------------------
+79. Build the PUT endpoint for updating an existing Review
+------------------------------
+80. Build the DELETE endpoint for deleting an existing Review
+------------------------------
+81. Build the GET endpoint to retrieve reviews for a given MovieInfoId
+------------------------------
+과제 6: Integration Test Case for the Reviews Service in the ReviewsIntgTest class
+------------------------------
+섹션 22: Unit Testing Functional Web
+------------------------------
+82. Setting up Test Class for Unit Testing
+------------------------------
+83. Unit Test the POST endpoint for creating a new Review
+------------------------------
+과제 7: Unit Test Cases for the Reviews Service in the ReviewsUnitTest class
+------------------------------
+섹션 23: Bean Validations using Functional Web
+------------------------------
+84. Adding the Constraint Annotation/Messages in the Review Document
+------------------------------
+85. Validating the Bean using the Validator
+------------------------------
+86. Unit Testing Bean Validation
+------------------------------
+섹션 24: Custom Global ErrorHandler in Functional Web
+------------------------------
+87. Implement the GlobalErrorHandler in Functional Web
+------------------------------
+섹션 25: Handling ResourceNotFound in FunctionalWeb
+------------------------------
+88. Resource NotFound(404) in Update Review using GlobalErrorHandler
+------------------------------
+89. Resource Not Found(404) in Update Review - Alternate Approach
+------------------------------
+섹션 26: MoviesService - Rest Service connects the MovieInfo and MovieReview Service
+------------------------------
+90. Overview of the Application
+------------------------------
+91. Setting Up the Controller in MoviesService
+------------------------------
+92. Introduction to Spring WebClient &amp; Configure WebClient
+------------------------------
+93. Build the NonBlocking REST Client for MovieInfoService using Spring WebClient
+------------------------------
+94. Build the NonBlocking REST Client for ReviewService using Spring WebClient
+------------------------------
+95. Combine the MoviesInfoRestClient and ReviewRestClient
+------------------------------
+섹션 27: Handling Network Exceptions in WebClient
+------------------------------
+96. Network Exceptions in Service to Service Communications
+------------------------------
+97. Handling 4XX in MoviesInfoService in WebClient
+------------------------------
+98. Handling 5xx in MoviesInfoService in WebClient
+------------------------------
+99. Implement the 4XX and 5XX error handling in ReviewsClient
+------------------------------
+섹션 28: Integration Testing External Services using WireMock
+------------------------------
+100. Introduction to WireMock
+------------------------------
+101. SetUp Wiremock in Integration Tests
+------------------------------
+102. Stubs for MoviesInfoService and ReviewService
+------------------------------
+103. Simulate 4xx Errors in Wiremock
+------------------------------
+104. Simulate 5xx Errors in Wiremock
+------------------------------
+섹션 29: Retrying Failed HTTP Calls
+------------------------------
+105. Why Retry failed HTTP calls ?
+------------------------------
+106. Retry failed Http calls using retry()
+------------------------------
+107. Retry failed Http calls using retrySpec() - With BackOff before Retry Attempt
+------------------------------
+108. Retry failed Http calls using retrySpec() - Retrying Specific Exceptions
+------------------------------
+109. Reusing the retry logic across different Rest Clients
+------------------------------
+섹션 30: Server Sent Events (SSE)
+------------------------------
+110. Catching up on Server Sent Events (SSE)
+------------------------------
+111. Introduction to Sinks
+------------------------------
+112. Sinks - Hands On
+------------------------------
+113. Build a Streaming Endpoint in MoviesInfoService
+------------------------------
+114. Integration Test for the Streaming Endpoint
+------------------------------
+115. Build a Streaming Endpoint in MoviesReviewService
+------------------------------
+116. Build a Streaming Client using WebClent in MoviesService
+------------------------------
+섹션 31: Bonus Section
+------------------------------
+117. Bonus Lecture
+------------------------------
