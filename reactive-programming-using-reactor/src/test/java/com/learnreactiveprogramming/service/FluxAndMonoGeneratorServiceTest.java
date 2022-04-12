@@ -32,11 +32,13 @@ class FluxAndMonoGeneratorServiceTest {
         //given
         
         //when
-        var namesFlux = fluxAndMonoGeneratorService.namesFlux_map().log();
+        var namesFlux = fluxAndMonoGeneratorService.namesFlux_map(3).log();
 
         //then
         StepVerifier.create(namesFlux)
-                .expectNext("ALEX", "BEN", "CHLOE")
+//                .expectNext("ALEX", "BEN", "CHLOE")
+//        		.expectNext("ALEX", "CHLOE")
+        		.expectNext("4-ALEX", "5-CHLOE")
                 .verifyComplete();
 
     }
