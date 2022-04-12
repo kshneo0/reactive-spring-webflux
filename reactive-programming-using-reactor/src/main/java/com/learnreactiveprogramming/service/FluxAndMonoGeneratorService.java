@@ -28,6 +28,16 @@ public class FluxAndMonoGeneratorService {
     	
     }
     
+    public Flux<String> namesFlux_immutablity() {
+    	
+    	var namesFlux = Flux.fromIterable(List.of("alex", "ben", "chloe"));
+    	
+    	namesFlux.map(String::toUpperCase);
+    	
+    	return namesFlux;    	
+    	
+    }
+    
 
     
 	public static void main(String[] args) {
