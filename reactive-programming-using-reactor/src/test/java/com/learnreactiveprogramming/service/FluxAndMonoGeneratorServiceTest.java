@@ -241,6 +241,55 @@ class FluxAndMonoGeneratorServiceTest {
 
     }
     
+
+    @Test
+    void explore_merge() {
+
+        //given
+
+        //when
+        var value = fluxAndMonoGeneratorService.explore_merge();
+
+        //then
+        StepVerifier.create(value)
+                // .expectNext("A", "B", "C", "D", "E", "F")
+                .expectNext("A", "D", "B", "E", "C", "F")
+                .verifyComplete();
+
+    }
+
+    @Test
+    void explore_mergeWith() {
+
+        //given
+
+        //when
+        var value = fluxAndMonoGeneratorService.explore_mergeWith();
+
+        //then
+        StepVerifier.create(value)
+
+                .expectNext("A", "D", "B", "E", "C", "F")
+                .verifyComplete();
+
+    }
+
+    @Test
+    void explore_mergeWith_mono() {
+
+        //given
+
+        //when
+        var value = fluxAndMonoGeneratorService.explore_mergeWith_mono();
+
+        //then
+        StepVerifier.create(value)
+
+                .expectNext("A", "B")
+                .verifyComplete();
+
+    }
+    
     
 
 }
