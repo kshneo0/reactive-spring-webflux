@@ -5,6 +5,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
 class FluxAndMonoGeneratorServiceTest {
@@ -192,6 +193,52 @@ class FluxAndMonoGeneratorServiceTest {
     	.expectNext("D", "E", "F", "A", "U", "L", "T")
     	.verifyComplete();
     	
+    }
+    
+    @Test
+    void explore_concat() {
+
+        //given
+
+        //when
+        var value = fluxAndMonoGeneratorService.explore_concat();
+
+        //then
+        StepVerifier.create(value)
+                .expectNext("A", "B", "C", "D", "E", "F")
+                .verifyComplete();
+
+    }
+    
+
+    @Test
+    void explore_concatWith() {
+
+        //given
+
+        //when
+        var value = fluxAndMonoGeneratorService.explore_concatWith();
+
+        //then
+        StepVerifier.create(value)
+                .expectNext("A", "B", "C", "D", "E", "F")
+                .verifyComplete();
+
+    }
+    
+    @Test
+    void explore_concat_mono() {
+
+        //given
+
+        //when
+        var value = fluxAndMonoGeneratorService.explore_concatWith_mono();
+
+        //then
+        StepVerifier.create(value)
+                .expectNext("A", "B")
+                .verifyComplete();
+
     }
     
     

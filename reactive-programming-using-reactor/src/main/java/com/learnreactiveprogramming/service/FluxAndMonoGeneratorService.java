@@ -141,6 +141,38 @@ public class FluxAndMonoGeneratorService {
         //using "map" would give the return type as Flux<Flux<String>
     }
     
+    // "A", "B", "C", "D", "E", "F"
+    public Flux<String> explore_concat() {
+
+        var abcFlux = Flux.just("A", "B", "C");
+
+        var defFlux = Flux.just("D", "E", "F");
+
+        return Flux.concat(abcFlux, defFlux).log();
+
+    }
+    
+    // "A", "B", "C", "D", "E", "F"
+    public Flux<String> explore_concatWith() {
+
+        var abcFlux = Flux.just("A", "B", "C");
+
+        var defFlux = Flux.just("D", "E", "F");
+
+        return abcFlux.concatWith(defFlux).log();
+
+    }
+    
+    public Flux<String> explore_concatWith_mono() {
+
+        var aMono = Mono.just("A");
+
+        var bMono = Flux.just("B");
+
+        return aMono.concatWith(bMono);
+
+    }
+    
     //ALEX -> Flux(A,L,E,X)
     public Flux<String> splitString(String name){
     	var charArray =  name.split("");
