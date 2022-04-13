@@ -3,6 +3,7 @@ package com.learnreactiveprogramming.service;
 import java.time.Duration;
 import java.util.List;
 import java.util.Random;
+import java.util.function.Function;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -105,6 +106,19 @@ public class FluxAndMonoGeneratorService {
     			//ALEX, CHOLE -> A, L, E, X, C, H, L, O, E
     			.concatMap(s -> splitString_withDelay(s))	//A, L, E, X, C, H, L, O, E
     			.log(); // db or remote service
+    	
+    }
+    
+    public Flux<String> namesFlux_transform(int stringLength) {
+
+        Function<Flux<String>, Flux<String>> filterMap = name -> name.map(String::toUpperCase)
+                .filter(s -> s.length() > stringLength);
+
+        var namesList = List.of("alex", "ben", "chloe"); // a, l, e , x
+        return Flux.fromIterable(namesList)
+                .transform(filterMap) // gives u the opportunity to combine multiple operations using a single call.
+                .flatMap(this::splitString)
+                .defaultIfEmpty("default");
     	
     }
     
