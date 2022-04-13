@@ -39,3 +39,9 @@ test {
         events "passed", "skipped", "failed", "standardOut", "standardError"
     }
 }
+
+sourceSets {
+	test {
+		java.srcDirs = ['src/test/java/unit', 'src/test/java/intg']
+	}
+}
