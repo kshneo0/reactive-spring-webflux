@@ -118,8 +118,27 @@ public class FluxAndMonoGeneratorService {
         return Flux.fromIterable(namesList)
                 .transform(filterMap) // gives u the opportunity to combine multiple operations using a single call.
                 .flatMap(this::splitString)
-                .defaultIfEmpty("default");
+                .defaultIfEmpty("default")
+                .log();
     	
+    }
+    
+    public Flux<String> namesFlux_transform_switchifEmpty(int stringLength) {
+
+        Function<Flux<String>, Flux<String>> filterMap = name -> name.map(String::toUpperCase)
+                .filter(s -> s.length() > stringLength)
+                .flatMap(this::splitString);
+        
+        var defaultFlux = Flux.just("default")
+                .transform(filterMap); //"D","E","F","A","U","L","T"
+        
+
+        var namesList = List.of("alex", "ben", "chloe"); // a, l, e , x
+        return Flux.fromIterable(namesList)
+                .transform(filterMap) // gives u the opportunity to combine multiple operations using a single call.
+                .switchIfEmpty(defaultFlux)
+                .log();
+        //using "map" would give the return type as Flux<Flux<String>
     }
     
     //ALEX -> Flux(A,L,E,X)
