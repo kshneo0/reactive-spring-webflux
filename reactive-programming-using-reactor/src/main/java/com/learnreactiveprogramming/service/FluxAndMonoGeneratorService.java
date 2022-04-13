@@ -50,12 +50,22 @@ public class FluxAndMonoGeneratorService {
 
     }
     
-    public Mono<List<String>> namesMono_map_flatmap(int stringLength) {
+    public Mono<List<String>> namesMono_flatMap(int stringLength) {
     	
     	return Mono.just("alex")
     			.map(String::toUpperCase)
     			.filter(s -> s.length() > stringLength)
     			.flatMap(this::splitStringMono);	//Mono<list of A, L, E, X>
+    	
+    }
+    
+    public Flux<String> namesMono_flatMapMany(int stringLength) {
+    	
+    	return Mono.just("alex")
+    			.map(String::toUpperCase)
+    			.filter(s -> s.length() > stringLength)
+    			.flatMapMany(this::splitString)
+    			.log();
     	
     }
     

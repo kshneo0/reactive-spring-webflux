@@ -114,13 +114,13 @@ class FluxAndMonoGeneratorServiceTest {
     }
     
     @Test
-    void namesMono_map_flatmap() {
+    void namesMono_flatMap() {
 
         //given
         int stringLength = 3;
 
         //when
-        var values = fluxAndMonoGeneratorService.namesMono_map_flatmap(stringLength).log();
+        var values = fluxAndMonoGeneratorService.namesMono_flatMap(stringLength).log();
 
         //then
         StepVerifier.create(values)
@@ -129,6 +129,21 @@ class FluxAndMonoGeneratorServiceTest {
 
     }
     
+    @Test
+    void namesMono_flatMapMany() {
+    	
+    	//given
+    	int stringLength = 3;
+    	
+    	//when
+    	var values = fluxAndMonoGeneratorService.namesMono_flatMapMany(stringLength).log();
+    	
+    	//then
+    	StepVerifier.create(values)
+    	.expectNext("A", "L", "E", "X")
+    	.verifyComplete();
+    	
+    }
     
     
     
