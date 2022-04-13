@@ -112,5 +112,26 @@ class FluxAndMonoGeneratorServiceTest {
                 .verifyComplete();
 
     }
+    
+    @Test
+    void namesMono_map_flatmap() {
+
+        //given
+        int stringLength = 3;
+
+        //when
+        var values = fluxAndMonoGeneratorService.namesMono_map_flatmap(stringLength).log();
+
+        //then
+        StepVerifier.create(values)
+                .expectNext(List.of("A", "L", "E", "X"))
+                .verifyComplete();
+
+    }
+    
+    
+    
+    
+    
 
 }
