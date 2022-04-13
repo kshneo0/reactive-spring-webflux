@@ -214,6 +214,20 @@ public class FluxAndMonoGeneratorService {
 
     }
     
+    // "A","B","C","D","E","F"
+    // Flux is subscribed early
+    public Flux<String> explore_mergeSequential() {
+
+        var abcFlux = Flux.just("A", "B", "C")
+                .delayElements(Duration.ofMillis(100));
+
+        var defFlux = Flux.just("D", "E", "F")
+                .delayElements(Duration.ofMillis(150));
+
+        return Flux.mergeSequential(abcFlux, defFlux).log();
+
+    }
+    
     //ALEX -> Flux(A,L,E,X)
     public Flux<String> splitString(String name){
     	var charArray =  name.split("");
