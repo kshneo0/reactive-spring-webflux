@@ -1,5 +1,9 @@
 package com.reactivespring.controller;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.util.Objects;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
@@ -54,8 +58,24 @@ class FluxMonoControllerTest {
 				.is2xxSuccessful()
 				.expectBodyList(Integer.class)
 				.consumeWith(listEntityExchangeResult -> {
-					listEntityExchangeResult.getResponseBody();
+					var responseBody = listEntityExchangeResult.getResponseBody();
+					assert (Objects.requireNonNull(responseBody).size() == 3);
 				});
+	}
+	
+	@Test
+	void mono() {
+		webTestClient
+		.get()
+		.uri("/mono")
+		.exchange()
+		.expectStatus()
+		.is2xxSuccessful()
+		.expectBody(String.class)
+		.consumeWith(stringEntityExchangeResult -> {
+			var responseBody = stringEntityExchangeResult.getResponseBody();
+			assertEquals("hello-world",responseBody );
+		});
 	}
 
 }
