@@ -1,5 +1,6 @@
 package com.reactivespring.controller;
 
+import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
@@ -16,6 +17,7 @@ import com.reactivespring.cservice.MovieInfoService;
 import com.reactivespring.domain.MovieInfo;
 
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @WebFluxTest(controllers = MoviesInfoController.class)
 @AutoConfigureWebTestClient
@@ -50,6 +52,30 @@ class MoviesInfoControllerUnitTest {
 		.expectBodyList(MovieInfo.class)
 		.hasSize(3);
 		
+	}
+	
+	@Test
+	void getMovieInfoById() {
+	    var id = "abc";
+
+	    when(moviesInfoServiceMock.getMovieInfoById(isA(String.class)))
+	            .thenReturn(Mono.just(new MovieInfo("abc", "Dark Knight Rises",
+	                    2012, List.of("Christian Bale", "Tom Hardy"), LocalDate.parse("2012-07-20"))));
+
+	    webTestClient
+	            .get()
+	            .uri(MOVIES_INFO_URL + "/{id}", id)
+	            .exchange()
+	            .expectStatus()
+	            .is2xxSuccessful()
+	            /*.expectBody(MovieInfo.class)
+	            .consumeWith(movieInfoEntityExchangeResult -> {
+	                var movieInfo = movieInfoEntityExchangeResult.getResponseBody();
+	                assert movieInfo != null;
+	            })*/
+	            .expectBody()
+	            .jsonPath("$.name").isEqualTo("Dark Knight Rises");
+
 	}
 	
 
