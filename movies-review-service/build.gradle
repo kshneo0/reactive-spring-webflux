@@ -1,7 +1,8 @@
 plugins {
-	id 'org.springframework.boot' version '2.5.3'
+	id 'org.springframework.boot' version '2.6.6'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
+	id 'eclipse'  // 이클립스 플러그인 추가
 }
 
 group = 'com.reactivespring'
@@ -43,4 +44,13 @@ sourceSets{
 
 test {
 	useJUnitPlatform()
+ 	testLogging {
+        events "passed", "skipped", "failed", "standardOut", "standardError"
+    }
+}
+
+sourceSets {
+	test {
+		java.srcDirs = ['src/test/java/unit', 'src/test/java/intg']
+	}
 }
