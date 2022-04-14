@@ -148,7 +148,7 @@ class MoviesInfoControllerUnitTest {
 			.bodyValue(updateMovieInfo)
 			.exchange()
 			.expectStatus()
-			.is2xxSuccessful()
+			.isNotFound()
 			;
 			
 	}
