@@ -1,6 +1,7 @@
 package com.reactivespring.repository;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -61,8 +62,27 @@ class MovieInfoRepositoryIntgTest {
 		
 		StepVerifier.create(moviesInfoMono)
 		//.expectNextCount(1)
-		.assertNext(movieInfo -> {
-			assertEquals("Dark Knight Rises",movieInfo.getName());
+		.assertNext(movieInfo1 -> {
+			assertEquals("Dark Knight Rises",movieInfo1.getName());
+		})
+		.verifyComplete();
+		
+	}
+	
+	@Test
+	void saveMovieInfo() {
+		
+		var movieInfo = new MovieInfo(null, "Batman Begins1",
+                2005, List.of("Christian Bale", "Michael Cane"), LocalDate.parse("2005-06-15"));
+
+		
+		var moviesInfoMono = movieInfoRepository.save(movieInfo).log();
+		
+		StepVerifier.create(moviesInfoMono)
+		//.expectNextCount(1)
+		.assertNext(movieInfo1 -> {
+			assertNotNull(movieInfo1.getMovieInfoId());
+			assertEquals("Batman Begins1",movieInfo1.getName());
 		})
 		.verifyComplete();
 		
