@@ -1,5 +1,7 @@
 package com.reactivespring.repository;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.time.LocalDate;
 import java.util.List;
 
@@ -50,6 +52,19 @@ class MovieInfoRepositoryIntgTest {
 		StepVerifier.create(moviesInfoFlux)
 			.expectNextCount(3)
 			.verifyComplete();
+		
+	}
+	
+	@Test
+	void findById() {
+		var moviesInfoMono = movieInfoRepository.findById("abc").log();
+		
+		StepVerifier.create(moviesInfoMono)
+		//.expectNextCount(1)
+		.assertNext(movieInfo -> {
+			assertEquals("Dark Knight Rises",movieInfo.getName());
+		})
+		.verifyComplete();
 		
 	}
 
