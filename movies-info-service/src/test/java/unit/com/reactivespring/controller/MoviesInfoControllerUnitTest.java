@@ -85,7 +85,7 @@ class MoviesInfoControllerUnitTest {
 		var movieInfo = new MovieInfo(null, "Batman Begins1",
                 2005, List.of("Christian Bale", "Michael Cane"), LocalDate.parse("2005-06-15"));
 		
-		 when(moviesInfoServiceMock.addMovieInfo(isA(MovieInfo.class)))
+		when(moviesInfoServiceMock.addMovieInfo(isA(MovieInfo.class)))
          	.thenReturn(Mono.just( new MovieInfo("mockId", "Batman Begins1",
                     2005, List.of("Christian Bale", "Michael Cane"), LocalDate.parse("2005-06-15"))));
 		
@@ -102,6 +102,34 @@ class MoviesInfoControllerUnitTest {
 				assert savedMovieInfo != null;
 				assert savedMovieInfo.getMovieInfoId() != null;
 				assertEquals("mockId", savedMovieInfo.getMovieInfoId());
+			});
+			
+	}
+	
+	@Test
+	void updateMovieInfo() {
+		
+		var movieInfoId = "abc";
+		var movieInfo = new MovieInfo(null, "Dark Knight Rises1",
+                2005, List.of("Christian Bale", "Michael Cane"), LocalDate.parse("2005-06-15"));
+		
+		when(moviesInfoServiceMock.updateMovieInfo(isA(MovieInfo.class), isA(String.class)))
+     	.thenReturn(Mono.just( new MovieInfo(movieInfoId, "Dark Knight Rises1",
+                2005, List.of("Christian Bale", "Michael Cane"), LocalDate.parse("2005-06-15"))));
+		
+		webTestClient
+			.put()
+			.uri(MOVIES_INFO_URL+"/{id}", movieInfoId)
+			.bodyValue(movieInfo)
+			.exchange()
+			.expectStatus()
+			.is2xxSuccessful()
+			.expectBody(MovieInfo.class)
+			.consumeWith(movieInfoEntityExchangeResult -> {
+				var updatedMovieInfo = movieInfoEntityExchangeResult.getResponseBody();
+				assert updatedMovieInfo != null;
+				assert updatedMovieInfo.getMovieInfoId() != null;
+				assertEquals("Dark Knight Rises1", updatedMovieInfo.getName());
 			});
 			
 	}
