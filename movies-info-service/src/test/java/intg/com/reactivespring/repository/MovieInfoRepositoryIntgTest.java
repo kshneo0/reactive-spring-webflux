@@ -48,7 +48,7 @@ class MovieInfoRepositoryIntgTest {
 	
 	@Test
 	void findAll() {
-		var moviesInfoFlux = movieInfoRepository.findAll();
+		var moviesInfoFlux = movieInfoRepository.findAll().log();
 		
 		StepVerifier.create(moviesInfoFlux)
 			.expectNextCount(3)
@@ -102,6 +102,18 @@ class MovieInfoRepositoryIntgTest {
 			assertEquals(2021,movieInfo1.getYear());
 		})
 		.verifyComplete();
+		
+	}
+	
+	@Test
+	void deleteMovieInfo() {
+		movieInfoRepository.deleteById("abc").block();
+		
+		var moviesInfoFlux = movieInfoRepository.findAll().log();
+		
+		StepVerifier.create(moviesInfoFlux)
+			.expectNextCount(2)
+			.verifyComplete();
 		
 	}
 
