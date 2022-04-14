@@ -87,5 +87,22 @@ class MovieInfoRepositoryIntgTest {
 		.verifyComplete();
 		
 	}
+	
+	@Test
+	void updateMovieInfo() {
+		
+		var movieInfo = movieInfoRepository.findById("abc").block();
+		movieInfo.setYear(2021);		
+		
+		var moviesInfoMono = movieInfoRepository.save(movieInfo).log();
+		
+		StepVerifier.create(moviesInfoMono)
+		//.expectNextCount(1)
+		.assertNext(movieInfo1 -> {
+			assertEquals(2021,movieInfo1.getYear());
+		})
+		.verifyComplete();
+		
+	}
 
 }
