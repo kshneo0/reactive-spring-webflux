@@ -16,8 +16,8 @@ import lombok.NoArgsConstructor;
 @Document
 public class MovieInfo {
 	
-	@Id
-	private String MovieInfoId;
+    @Id
+    private String movieInfoId;
 	private String name;
 	private Integer year;
 	private List<String> cast;
