@@ -30,7 +30,7 @@ class MoviesInfoControllerTest {
 	@Autowired
 	WebTestClient webTestClient; 
 	
-	static String MOVIE_INFO_URL = "/v1/movieinfos";
+	static String MOVIES_INFO_URL = "/v1/movieinfos";
 	
 	@BeforeEach
 	void setUp() throws Exception {
@@ -57,7 +57,7 @@ class MoviesInfoControllerTest {
 		
 		webTestClient
 			.post()
-			.uri(MOVIE_INFO_URL)
+			.uri(MOVIES_INFO_URL)
 			.bodyValue(movieInfo)
 			.exchange()
 			.expectStatus()
@@ -76,7 +76,7 @@ class MoviesInfoControllerTest {
 		
 		webTestClient
 			.get()
-			.uri(MOVIE_INFO_URL)
+			.uri(MOVIES_INFO_URL)
 			.exchange()
 			.expectStatus()
 			.is2xxSuccessful()
@@ -92,7 +92,7 @@ class MoviesInfoControllerTest {
 		
 		webTestClient
 		.get()
-		.uri(MOVIE_INFO_URL+"/{id}", movieInfoId)
+		.uri(MOVIES_INFO_URL+"/{id}", movieInfoId)
 		.exchange()
 		.expectStatus()
 		.is2xxSuccessful()
@@ -116,7 +116,7 @@ class MoviesInfoControllerTest {
 		
 		webTestClient
 			.put()
-			.uri(MOVIE_INFO_URL+"/{id}", movieInfoId)
+			.uri(MOVIES_INFO_URL+"/{id}", movieInfoId)
 			.bodyValue(movieInfo)
 			.exchange()
 			.expectStatus()
@@ -129,6 +129,18 @@ class MoviesInfoControllerTest {
 				assertEquals("Dark Knight Rises1", updatedMovieInfo.getName());
 			});
 			
+	}
+	
+	@Test
+	void deleteMovieInfoById() {
+	    var id = "abc";
+
+	    webTestClient
+	            .delete()
+	            .uri(MOVIES_INFO_URL + "/{id}", id)
+	            .exchange()
+	            .expectStatus()
+	            .isNoContent();
 	}
 
 }
