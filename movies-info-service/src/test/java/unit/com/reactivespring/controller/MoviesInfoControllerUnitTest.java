@@ -80,6 +80,22 @@ class MoviesInfoControllerUnitTest {
 	}
 	
 	@Test
+	void getMovieInfoById_1() {
+	    var id = "def";
+	    
+	    when(moviesInfoServiceMock.getMovieInfoById(isA(String.class)))
+        .thenReturn(Mono.empty());
+	    
+	    webTestClient
+	            .get()
+	            .uri(MOVIES_INFO_URL + "/{id}", id)
+	            .exchange()
+	            .expectStatus()
+	            .isNotFound();
+	}
+	
+	
+	@Test
 	void addMovieInfo() {
 		
 		var movieInfo = new MovieInfo(null, "Batman Begins1",
