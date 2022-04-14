@@ -14,8 +14,8 @@ import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
-import com.reactivespring.cservice.MovieInfoService;
 import com.reactivespring.domain.MovieInfo;
+import com.reactivespring.service.MovieInfoService;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -110,27 +110,46 @@ class MoviesInfoControllerUnitTest {
 	void updateMovieInfo() {
 		
 		var movieInfoId = "abc";
-		var movieInfo = new MovieInfo(null, "Dark Knight Rises1",
-                2005, List.of("Christian Bale", "Michael Cane"), LocalDate.parse("2005-06-15"));
+		var updateMovieInfo = new MovieInfo(null, "Dark Knight Rises1",
+                2013, List.of("Christian Bale1", "Tom Hardy1"), LocalDate.parse("2012-07-20"));
 		
 		when(moviesInfoServiceMock.updateMovieInfo(isA(MovieInfo.class), isA(String.class)))
-     	.thenReturn(Mono.just( new MovieInfo(movieInfoId, "Dark Knight Rises1",
-                2005, List.of("Christian Bale", "Michael Cane"), LocalDate.parse("2005-06-15"))));
+     	.thenReturn(Mono.just(updateMovieInfo));
 		
 		webTestClient
 			.put()
 			.uri(MOVIES_INFO_URL+"/{id}", movieInfoId)
-			.bodyValue(movieInfo)
+			.bodyValue(updateMovieInfo)
 			.exchange()
 			.expectStatus()
 			.is2xxSuccessful()
 			.expectBody(MovieInfo.class)
 			.consumeWith(movieInfoEntityExchangeResult -> {
-				var updatedMovieInfo = movieInfoEntityExchangeResult.getResponseBody();
-				assert updatedMovieInfo != null;
-				assert updatedMovieInfo.getMovieInfoId() != null;
-				assertEquals("Dark Knight Rises1", updatedMovieInfo.getName());
+				var movieInfo = movieInfoEntityExchangeResult.getResponseBody();
+				assert movieInfo != null;
+				assertEquals("Dark Knight Rises1", movieInfo.getName());
 			});
+			
+	}
+	
+	@Test
+	void updateMovieInfo_notfound() {
+		
+		var movieInfoId = "def";
+		var updateMovieInfo = new MovieInfo(null, "Dark Knight Rises1",
+                2013, List.of("Christian Bale1", "Tom Hardy1"), LocalDate.parse("2012-07-20"));
+		
+		  when(moviesInfoServiceMock.updateMovieInfo(isA(MovieInfo.class), isA(String.class)))
+          .thenReturn(Mono.empty());
+		
+		webTestClient
+			.put()
+			.uri(MOVIES_INFO_URL+"/{id}", movieInfoId)
+			.bodyValue(updateMovieInfo)
+			.exchange()
+			.expectStatus()
+			.is2xxSuccessful()
+			;
 			
 	}
 	
@@ -173,6 +192,7 @@ class MoviesInfoControllerUnitTest {
 			;
 			
 	}
+	
 	
 
 }

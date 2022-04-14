@@ -1,4 +1,4 @@
-package com.reactivespring.cservice;
+package com.reactivespring.service;
 
 import org.springframework.stereotype.Service;
 
@@ -34,12 +34,12 @@ public class MovieInfoService {
 	public Mono<MovieInfo> updateMovieInfo(MovieInfo updatedMovieInfo, String id) {
 		
 		return movieInfoRepository.findById(id)
-			.flatMap(movieInfo -> {
-				movieInfo.setCast(updatedMovieInfo.getCast());
-				movieInfo.setName(updatedMovieInfo.getName());
-				movieInfo.setRelease_date(updatedMovieInfo.getRelease_date());				
-				movieInfo.setYear(updatedMovieInfo.getYear());
-				return movieInfoRepository.save(movieInfo);
+			.flatMap(movieInfo1 -> {
+				movieInfo1.setCast(updatedMovieInfo.getCast());
+				movieInfo1.setName(updatedMovieInfo.getName());
+				movieInfo1.setRelease_date(updatedMovieInfo.getRelease_date());				
+				movieInfo1.setYear(updatedMovieInfo.getYear());
+				return movieInfoRepository.save(movieInfo1);
 			});
 	}
 

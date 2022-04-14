@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.reactivespring.cservice.MovieInfoService;
 import com.reactivespring.domain.MovieInfo;
+import com.reactivespring.service.MovieInfoService;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
