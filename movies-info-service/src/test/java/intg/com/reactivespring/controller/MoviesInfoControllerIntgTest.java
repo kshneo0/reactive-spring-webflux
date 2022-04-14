@@ -19,6 +19,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 import com.reactivespring.domain.MovieInfo;
 import com.reactivespring.repository.MovieInfoRepository;
 
+import reactor.test.StepVerifier;
+
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
 @AutoConfigureWebTestClient
@@ -80,6 +82,18 @@ class MoviesInfoControllerIntgTest {
 			.expectBodyList(MovieInfo.class)
 			.hasSize(1);
 		
+	}
+	
+	@Test
+	void findByName() {
+
+	    var movieInfosMono = movieInfoRepository.findByName("Batman Begins").log();
+
+	    StepVerifier.create(movieInfosMono)
+	            .expectNextCount(1)
+	            .verifyComplete();
+
+
 	}
 	
 	@Test
