@@ -121,5 +121,15 @@ class MovieInfoRepositoryIntgTest {
 			.verifyComplete();
 		
 	}
+	
+	@Test
+	void findByYear() {
+		var moviesInfoMono = movieInfoRepository.findByYear(2005).log();
+		
+		StepVerifier.create(moviesInfoMono)
+			.expectNextCount(1)
+			.verifyComplete();
+		
+	}
 
 }
