@@ -11,17 +11,20 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.reactivespring.domain.MovieInfo;
 import com.reactivespring.service.MovieInfoService;
 
+import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping("v1")
+@Slf4j
 public class MoviesInfoController {
 	
 	private MovieInfoService movieInfoService;
@@ -31,7 +34,12 @@ public class MoviesInfoController {
 	}
 	
 	@GetMapping("/movieinfos")
-	public Flux<MovieInfo> getAllMovieInfos(){
+	public Flux<MovieInfo> getAllMovieInfos(@RequestParam(value="year", required = false) Integer year){
+		log.info("Year is : {}", year);
+		
+		if(year != null) {
+			return movieInfoService.getMovieInfoByYear(year).log();
+		}
 		return movieInfoService.getAllMovieInfos().log();
 	}
 	

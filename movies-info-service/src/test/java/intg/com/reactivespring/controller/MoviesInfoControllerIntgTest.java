@@ -14,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.reactive.server.WebTestClient;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import com.reactivespring.domain.MovieInfo;
 import com.reactivespring.repository.MovieInfoRepository;
@@ -22,7 +23,7 @@ import com.reactivespring.repository.MovieInfoRepository;
 @ActiveProfiles("test")
 @AutoConfigureWebTestClient
 @TestPropertySource(properties = "spring.mongodb.embedded.version=3.5.5")
-class MoviesInfoControllerTest {
+class MoviesInfoControllerIntgTest {
 
 	@Autowired
 	MovieInfoRepository movieInfoRepository;
@@ -48,7 +49,39 @@ class MoviesInfoControllerTest {
 	@AfterEach
 	void tearDown() throws Exception {
 	}
-
+	
+	@Test
+	void getAllMovieInfos() {
+		
+		webTestClient
+			.get()
+			.uri(MOVIES_INFO_URL)
+			.exchange()
+			.expectStatus()
+			.is2xxSuccessful()
+			.expectBodyList(MovieInfo.class)
+			.hasSize(3);
+		
+	}
+	
+	@Test
+	void getMovieInfoByYear() {
+		
+		var uri = UriComponentsBuilder.fromUriString(MOVIES_INFO_URL)
+			.queryParam("year", 2005)
+			.buildAndExpand().toUri();
+		
+		webTestClient
+			.get()
+			.uri(uri)
+			.exchange()
+			.expectStatus()
+			.is2xxSuccessful()
+			.expectBodyList(MovieInfo.class)
+			.hasSize(1);
+		
+	}
+	
 	@Test
 	void addMovieInfo() {
 		
@@ -71,19 +104,7 @@ class MoviesInfoControllerTest {
 			
 	}
 	
-	@Test
-	void getAllMovieInfos() {
-		
-		webTestClient
-			.get()
-			.uri(MOVIES_INFO_URL)
-			.exchange()
-			.expectStatus()
-			.is2xxSuccessful()
-			.expectBodyList(MovieInfo.class)
-			.hasSize(3);
-		
-	}
+	
 	
 	@Test
 	void getMovieInfoById() {
@@ -106,6 +127,17 @@ class MoviesInfoControllerTest {
 		});
 */		
 	}
+	
+    @Test
+    void getMovieInfoById_1() {
+        var id = "def";
+        webTestClient
+                .get()
+                .uri(MOVIES_INFO_URL + "/{id}", id)
+                .exchange()
+                .expectStatus()
+                .isNotFound();
+    }
 	
 	@Test
 	void updateMovieInfo() {
@@ -130,6 +162,25 @@ class MoviesInfoControllerTest {
 			});
 			
 	}
+	
+	@Test
+	void updateMovieInfo_notfound() {
+		
+		var movieInfoId = "def";
+		var updateMovieInfo = new MovieInfo(null, "Dark Knight Rises1",
+                2005, List.of("Christian Bale", "Michael Cane"), LocalDate.parse("2005-06-15"));
+		
+		webTestClient
+			.put()
+			.uri(MOVIES_INFO_URL+"/{id}", movieInfoId)
+			.bodyValue(updateMovieInfo)
+			.exchange()
+			.expectStatus()
+			.isNotFound()
+			;
+			
+	}
+	
 	
 	@Test
 	void deleteMovieInfoById() {

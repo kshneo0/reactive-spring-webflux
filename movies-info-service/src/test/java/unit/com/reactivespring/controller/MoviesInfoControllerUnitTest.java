@@ -55,46 +55,30 @@ class MoviesInfoControllerUnitTest {
 		
 	}
 	
-	@Test
-	void getMovieInfoById() {
-	    var id = "abc";
+    @Test
+    void getMovieInfoById() {
+        var id = "abc";
 
-	    when(moviesInfoServiceMock.getMovieInfoById(isA(String.class)))
-	            .thenReturn(Mono.just(new MovieInfo("abc", "Dark Knight Rises",
-	                    2012, List.of("Christian Bale", "Tom Hardy"), LocalDate.parse("2012-07-20"))));
+        when(moviesInfoServiceMock.getMovieInfoById(isA(String.class)))
+                .thenReturn(Mono.just(new MovieInfo("abc", "Dark Knight Rises",
+                        2012, List.of("Christian Bale", "Tom Hardy"), LocalDate.parse("2012-07-20"))));
 
-	    webTestClient
-	            .get()
-	            .uri(MOVIES_INFO_URL + "/{id}", id)
-	            .exchange()
-	            .expectStatus()
-	            .is2xxSuccessful()
-	            /*.expectBody(MovieInfo.class)
-	            .consumeWith(movieInfoEntityExchangeResult -> {
-	                var movieInfo = movieInfoEntityExchangeResult.getResponseBody();
-	                assert movieInfo != null;
-	            })*/
-	            .expectBody()
-	            .jsonPath("$.name").isEqualTo("Dark Knight Rises");
+        webTestClient
+                .get()
+                .uri(MOVIES_INFO_URL + "/{id}", id)
+                .exchange()
+                .expectStatus()
+                .is2xxSuccessful()
+                /*.expectBody(MovieInfo.class)
+                .consumeWith(movieInfoEntityExchangeResult -> {
+                    var movieInfo = movieInfoEntityExchangeResult.getResponseBody();
+                    assert movieInfo != null;
+                })*/
+                .expectBody()
+                .jsonPath("$.name").isEqualTo("Dark Knight Rises");
 
-	}
-	
-	@Test
-	void getMovieInfoById_1() {
-	    var id = "def";
-	    
-	    when(moviesInfoServiceMock.getMovieInfoById(isA(String.class)))
-        .thenReturn(Mono.empty());
-	    
-	    webTestClient
-	            .get()
-	            .uri(MOVIES_INFO_URL + "/{id}", id)
-	            .exchange()
-	            .expectStatus()
-	            .isNotFound();
-	}
-	
-	
+    }
+		
 	@Test
 	void addMovieInfo() {
 		
@@ -148,26 +132,7 @@ class MoviesInfoControllerUnitTest {
 			
 	}
 	
-	@Test
-	void updateMovieInfo_notfound() {
-		
-		var movieInfoId = "def";
-		var updateMovieInfo = new MovieInfo(null, "Dark Knight Rises1",
-                2013, List.of("Christian Bale1", "Tom Hardy1"), LocalDate.parse("2012-07-20"));
-		
-		  when(moviesInfoServiceMock.updateMovieInfo(isA(MovieInfo.class), isA(String.class)))
-          .thenReturn(Mono.empty());
-		
-		webTestClient
-			.put()
-			.uri(MOVIES_INFO_URL+"/{id}", movieInfoId)
-			.bodyValue(updateMovieInfo)
-			.exchange()
-			.expectStatus()
-			.isNotFound()
-			;
-			
-	}
+
 	
 	@Test
 	void deleteMovieInfoById() {
