@@ -1,5 +1,7 @@
 package com.reactivespring.controller;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.time.LocalDate;
 import java.util.List;
 
@@ -81,6 +83,52 @@ class MoviesInfoControllerTest {
 			.expectBodyList(MovieInfo.class)
 			.hasSize(3);
 		
+	}
+	
+	@Test
+	void getMovieInfoById() {
+		
+		var movieInfoId = "abc";
+		
+		webTestClient
+		.get()
+		.uri(MOVIE_INFO_URL+"/{id}", movieInfoId)
+		.exchange()
+		.expectStatus()
+		.is2xxSuccessful()
+		.expectBody()
+		.jsonPath("$.name").isEqualTo("Dark Knight Rises");
+/*		
+		.expectBody(MovieInfo.class)
+		.consumeWith( movieInfoEntityExchangeResult -> {
+			var movieInfo = movieInfoEntityExchangeResult.getResponseBody();
+			assertNotNull(movieInfo);
+		});
+*/		
+	}
+	
+	@Test
+	void updateMovieInfo() {
+		
+		var movieInfoId = "abc";
+		var movieInfo = new MovieInfo(null, "Dark Knight Rises1",
+                2005, List.of("Christian Bale", "Michael Cane"), LocalDate.parse("2005-06-15"));
+		
+		webTestClient
+			.put()
+			.uri(MOVIE_INFO_URL+"/{id}", movieInfoId)
+			.bodyValue(movieInfo)
+			.exchange()
+			.expectStatus()
+			.is2xxSuccessful()
+			.expectBody(MovieInfo.class)
+			.consumeWith(movieInfoEntityExchangeResult -> {
+				var updatedMovieInfo = movieInfoEntityExchangeResult.getResponseBody();
+				assert updatedMovieInfo != null;
+				assert updatedMovieInfo.getMovieInfoId() != null;
+				assertEquals("Dark Knight Rises1", updatedMovieInfo.getName());
+			});
+			
 	}
 
 }
