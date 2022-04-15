@@ -79,8 +79,8 @@ public class ReviewHandler {
 		
 		String reviewId = request.pathVariable("id");
 		
-		var existingReview = reviewReactiveRepository.findById(reviewId)
-				.switchIfEmpty(Mono.error(new ReviewNotFoundException("Review not Found for the given Review Id " + reviewId)));
+		var existingReview = reviewReactiveRepository.findById(reviewId);
+//				.switchIfEmpty(Mono.error(new ReviewNotFoundException("Review not Found for the given Review Id " + reviewId)));
 		
 		return existingReview
 				.flatMap(review -> request.bodyToMono(Review.class)
@@ -90,7 +90,8 @@ public class ReviewHandler {
 						return review;
 					})
 					.flatMap(reviewReactiveRepository::save)
-					.flatMap(ServerResponse.ok()::bodyValue));
+					.flatMap(ServerResponse.ok()::bodyValue))
+				.switchIfEmpty(ServerResponse.notFound().build());
 		
 	}
 
