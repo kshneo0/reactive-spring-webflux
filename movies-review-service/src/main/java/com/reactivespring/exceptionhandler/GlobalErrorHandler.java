@@ -21,6 +21,11 @@ public class GlobalErrorHandler implements ErrorWebExceptionHandler {
 
         DataBufferFactory bufferFactory = exchange.getResponse().bufferFactory();
         var errorMessage = bufferFactory.wrap(ex.getMessage().getBytes());
+        
+        if(ex instanceof ReviewNotFoundException){
+            exchange.getResponse().setStatusCode(HttpStatus.NOT_FOUND);
+            return exchange.getResponse().writeWith(Mono.just(errorMessage));
+        }
 
         if(ex instanceof ReviewDataException){
             exchange.getResponse().setStatusCode(HttpStatus.BAD_REQUEST);

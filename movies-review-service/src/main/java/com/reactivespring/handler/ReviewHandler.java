@@ -14,6 +14,7 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 
 import com.reactivespring.domain.Review;
 import com.reactivespring.exception.ReviewDataException;
+import com.reactivespring.exception.ReviewNotFoundException;
 import com.reactivespring.repository.ReviewReactiveRepository;
 
 import io.netty.channel.unix.Errors;
@@ -77,7 +78,10 @@ public class ReviewHandler {
 	public Mono<ServerResponse> updateReview(ServerRequest request) {
 		
 		String reviewId = request.pathVariable("id");
-		var existingReview = reviewReactiveRepository.findById(reviewId);
+		
+		var existingReview = reviewReactiveRepository.findById(reviewId)
+				.switchIfEmpty(Mono.error(new ReviewNotFoundException("Review not Found for the given Review Id " + reviewId)));
+		
 		return existingReview
 				.flatMap(review -> request.bodyToMono(Review.class)
 					.map(reqReview -> {
