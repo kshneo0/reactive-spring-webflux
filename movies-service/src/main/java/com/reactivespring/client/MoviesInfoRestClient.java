@@ -1,5 +1,7 @@
 package com.reactivespring.client;
 
+import java.time.Duration;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -10,6 +12,7 @@ import com.reactivespring.exception.MoviesInfoClientException;
 import com.reactivespring.exception.MoviesInfoServerException;
 import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
+import reactor.util.retry.Retry;
 
 @Component
 @Slf4j
@@ -52,7 +55,8 @@ public class MoviesInfoRestClient {
 								
 			})
 			.bodyToMono(MovieInfo.class)
-			.retry(3)
+//			.retry(3)
+			.retryWhen(Retry.fixedDelay(3, Duration.ofSeconds(1)))
 			.log();
 		
 	}
