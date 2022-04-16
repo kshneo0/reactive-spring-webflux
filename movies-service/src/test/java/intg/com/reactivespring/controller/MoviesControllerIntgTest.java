@@ -82,9 +82,11 @@ public class MoviesControllerIntgTest {
 		.uri("/v1/movies/{id}", "abc")
 		.exchange()
 		.expectStatus()
-		.is4xxClientError()
-		.expectBody(String.class)
-		.isEqualTo("There is no MovieInfo Available for the passed in Id : abc");
+		.is4xxClientError();
+//		.expectBody(String.class)
+//		.isEqualTo("There is no MovieInfo Available for the passed in Id : abc");
+		
+		WireMock.verify(1, WireMock.getRequestedFor(urlEqualTo("/v1/movieinfos"+ "/" + movieId)));
 		
 	}
 	
