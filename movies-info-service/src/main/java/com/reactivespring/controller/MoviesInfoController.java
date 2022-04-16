@@ -59,7 +59,7 @@ public class MoviesInfoController {
     @GetMapping(value = "/movieinfos/stream", produces = MediaType.APPLICATION_NDJSON_VALUE)
     public Flux<MovieInfo> streamMovieInfos() {
 
-        return movieInfoSink.asFlux();
+        return movieInfoSink.asFlux().log();
     }
 	
 	@PostMapping("/movieinfos")
