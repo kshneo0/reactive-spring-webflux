@@ -7,7 +7,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 import com.reactivespring.domain.MovieInfo;
 import com.reactivespring.exception.MoviesInfoClientException;
-
+import com.reactivespring.exception.MoviesInfoServerException;
 import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
 
@@ -42,6 +42,14 @@ public class MoviesInfoRestClient {
 				return clientResponse.bodyToMono(String.class)
 						.flatMap(responseMessage -> Mono.error(new MoviesInfoClientException(
 								responseMessage, clientResponse.statusCode().value())));
+			})
+			.onStatus(HttpStatus::is5xxServerError, clientResponse -> {
+				log.info("Status code id : {}", clientResponse.statusCode().value() );
+				
+				return clientResponse.bodyToMono(String.class)
+						.flatMap(responseMessage -> Mono.error(new MoviesInfoServerException(
+								"Server Exception in MoviesInfoService " + responseMessage)));
+								
 			})
 			.bodyToMono(MovieInfo.class)
 			.log();
