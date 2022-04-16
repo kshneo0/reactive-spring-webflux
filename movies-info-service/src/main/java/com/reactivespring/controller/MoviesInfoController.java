@@ -56,6 +56,9 @@ public class MoviesInfoController {
 	@ResponseStatus(HttpStatus.CREATED)
 	public Mono<MovieInfo> addMovieInfo(@RequestBody @Valid MovieInfo movieInfo){
 		return movieInfoService.addMovieInfo(movieInfo).log();
+		
+		// publish that movie to something
+		// subscriber to this movie info
 	}
 	
 	@PutMapping("/movieinfos/{id}")
