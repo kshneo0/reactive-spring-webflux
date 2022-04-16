@@ -10,6 +10,7 @@ import com.reactivespring.domain.Review;
 
 import com.reactivespring.exception.ReviewsClientException;
 import com.reactivespring.exception.ReviewsServerException;
+import com.reactivespring.util.RetryUtil;
 
 import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Flux;
@@ -56,7 +57,8 @@ public class ReviewsRestClient {
 								"Server Exception in ReviewsService " + responseMessage)));
 								
 			})
-			.bodyToFlux(Review.class);
+			.bodyToFlux(Review.class)
+			.retryWhen(RetryUtil.retrySpec());
 		
 	}
 	
