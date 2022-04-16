@@ -116,4 +116,30 @@ public class MoviesControllerIntgTest {
         );
 		
 	}
+	
+	@Test
+	void retrieveMovieById_5XX() {
+		
+		var movieId = "abc";
+		stubFor(get(urlEqualTo("/v1/movieinfos"+ "/" + movieId))
+				.willReturn(aResponse()
+				.withStatus(500)
+				.withBody("MovieInfo Service Unavailable")
+						));
+/*		
+		stubFor(get(urlPathEqualTo("/v1/reviews"))
+				.willReturn(aResponse()
+						.withHeader("Content-Type", "application/json")
+						.withBodyFile("reviews.json")));
+*/		
+		
+		webTestClient.get()
+		.uri("/v1/movies/{id}", "abc")
+		.exchange()
+		.expectStatus()
+		.is5xxServerError()
+		.expectBody(String.class)
+		.isEqualTo("Server Exception in MoviesInfoService MovieInfo Service Unavailable");
+		
+	}
 }
